@@ -1,3 +1,5 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+def response_200(request):
+    return HttpResponse('{"status": "OK"}', status=200)
