@@ -51,5 +51,12 @@ def csv_to_json(csv_file, json_file):
         jsonfile.write(json.dumps(data_list, indent=4, ensure_ascii=False))
 
 
+def read_json_file(json_file):
+    with open(json_file, 'r', encoding='utf-8') as json_file:
+        return json.load(json_file)
+
+
 csv_to_json(CSV_FILE1, JSON_FILE1)
 csv_to_json(CSV_FILE2, JSON_FILE2)
+
+
