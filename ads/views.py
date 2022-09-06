@@ -37,7 +37,7 @@ class CatDetailView(DetailView):
 
         return JsonResponse(
             {
-            'id': cat.pk,
-            'name': cat.name
+                'id': cat.pk,
+                'name': cat.name
             }
             , safe=False, json_dumps_params={'ensure_ascii': False})
