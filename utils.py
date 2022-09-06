@@ -8,14 +8,16 @@ JSON_FILE2 = r'./data/categories.json'
 CSV_FILE2 = r'./raw_data/categories.csv'
 
 
-def clean_csv_data(data_list: list[dict]) -> list[dict]:
+def clean_csv_data(data_list: list[dict], model="ads.ad") -> list[dict]:
     """
     Превращает строковые значения ID в целочисленные, так же приводит ключи Id и id к pk.
     Приводит строковые true false к булевым
     Приводит цены из строк к целочисленным
+    :param model: Имя модели данных в Джанго
     :param data_list: Список данных из csv
     :return: list
     """
+    key_list = ['name', 'author', 'price', 'description', 'address', 'is_published']
     for row in data_list:
         # Причесали ключи
         if 'Id' in row.keys():
@@ -31,6 +33,13 @@ def clean_csv_data(data_list: list[dict]) -> list[dict]:
         # Причесали цены
         if 'price' in row.keys():
             row['price'] = int(row['price'])
+        row['model'] = model
+        # Перемещаем данные по списку ключей внутрь ключа fields
+        row['fields'] = {}
+        for key in key_list:
+            data = row.pop(key)
+            row['fields'][key] = data
+
 
     return data_list
 
@@ -56,7 +65,7 @@ def read_json_file(json_file):
         return json.load(json_file)
 
 
-csv_to_json(CSV_FILE1, JSON_FILE1)
-csv_to_json(CSV_FILE2, JSON_FILE2)
+# csv_to_json(CSV_FILE1, JSON_FILE1)
+# csv_to_json(CSV_FILE2, JSON_FILE2) # json с категориями доделал вручную (структуру для загрузки через loaddata)
 
 
