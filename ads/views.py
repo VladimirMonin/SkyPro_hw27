@@ -63,8 +63,7 @@ class AdView(View):
                 'is_published': ad.is_published
             } for ad in ads]
 
-        return JsonResponse(response, safe=False,
-                            json_dumps_params={'ensure_ascii': False})
+        return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
 
     def post(self, request):
         ad_data = json.loads(request.body)
@@ -102,5 +101,16 @@ class CatView(View):
 
             } for cat in cats]
 
-        return JsonResponse(response, safe=False,
-                            json_dumps_params={'ensure_ascii': False})
+        return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
+
+    def post(self, request):
+        cat_data = json.loads(request.body)
+        cat = Categories()
+
+        cat.name = cat_data['name']
+        cat.save()
+
+        return JsonResponse({"name": cat.name}, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+
