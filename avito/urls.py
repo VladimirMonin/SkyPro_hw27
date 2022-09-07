@@ -7,4 +7,6 @@ urlpatterns = [
     path('', views.response_200),
     path('ad/<int:pk>', views.AdDetailView.as_view()),
     path('cat/<int:pk>', views.CatDetailView.as_view()),
+    path('ad/', views.AdView.as_view()),
+    path('cat/', views.CatView.as_view()),
 ]
